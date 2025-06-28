@@ -3,6 +3,7 @@ import unittest
 import random
 import string
 import time
+import sys
 from datetime import datetime
 
 # Backend URL from frontend .env
@@ -14,16 +15,20 @@ def random_string(length=8):
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=length))
 
 class LinkBioAPITest(unittest.TestCase):
-    def setUp(self):
-        """Set up test data"""
-        self.timestamp = int(time.time())
-        self.test_email = f"test_{self.timestamp}@example.com"
-        self.test_username = f"test_user_{self.timestamp}"
-        self.test_password = "TestPassword123!"
-        self.token = None
-        self.user_id = None
-        self.linkpage_id = None
-        self.link_id = None
+    @classmethod
+    def setUpClass(cls):
+        """Set up test data once for all tests"""
+        cls.timestamp = int(time.time())
+        cls.test_email = f"test_{cls.timestamp}@example.com"
+        cls.test_username = f"test_user_{cls.timestamp}"
+        cls.test_password = "TestPassword123!"
+        cls.token = None
+        cls.user_id = None
+        cls.linkpage_id = None
+        cls.link_id = None
+        
+        print(f"\n🔍 TESTING WITH USER: {cls.test_username} / {cls.test_email}")
+        print(f"🔍 BACKEND URL: {API_URL}")
     
     def test_01_signup(self):
         """Test user signup"""
