@@ -173,7 +173,8 @@ class LinkBioAPITest(unittest.TestCase):
         self.assertEqual(data["url"], "https://github.com")
         self.assertEqual(data["icon"], "💻")
         
-        self.link_id = data["id"]
+        # Save link ID for subsequent tests
+        LinkBioAPITest.link_id = data["id"]
         print(f"✅ Link added - ID: {self.link_id}")
     
     def test_08_update_link(self):
