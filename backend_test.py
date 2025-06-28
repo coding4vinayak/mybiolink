@@ -50,8 +50,8 @@ class LinkBioAPITest(unittest.TestCase):
         self.assertEqual(data["user"]["username"], self.test_username)
         
         # Save token for subsequent tests
-        self.token = data["access_token"]
-        self.user_id = data["user"]["id"]
+        LinkBioAPITest.token = data["access_token"]
+        LinkBioAPITest.user_id = data["user"]["id"]
         
         print(f"✅ Signup successful - User ID: {self.user_id}")
     
