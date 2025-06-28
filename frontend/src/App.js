@@ -533,18 +533,18 @@ const PublicPage = ({ username }) => {
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('');
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     const path = window.location.pathname;
     if (path === '/') {
       setCurrentPage('home');
-    } else if (path.startsWith('/')) {
+    } else if (path.startsWith('/') && path.length > 1) {
       const username = path.substring(1);
+      // Only treat as public page if it's not a logged-in user viewing their own page
       setCurrentPage(`public:${username}`);
     }
   }, []);
-
-  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -554,18 +554,26 @@ const App = () => {
     );
   }
 
-  // Public page route
+  // Public page route - check this BEFORE checking authentication
   if (currentPage.startsWith('public:')) {
     const username = currentPage.split(':')[1];
-    return <PublicPage username={username} />;
+    if (username && username.trim() !== '') {
+      return <PublicPage username={username} />;
+    }
   }
 
-  // Main app logic
-  if (!user) {
+  // Main app logic - only show auth form if user is not logged in AND not viewing a public page
+  if (!user && currentPage === 'home') {
     return <AuthForm />;
   }
 
-  return <Dashboard />;
+  // If user is logged in, show dashboard
+  if (user) {
+    return <Dashboard />;
+  }
+
+  // Default fallback
+  return <AuthForm />;
 };
 
 const AppWithAuth = () => {
