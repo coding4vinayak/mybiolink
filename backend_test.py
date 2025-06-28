@@ -113,7 +113,7 @@ class LinkBioAPITest(unittest.TestCase):
         self.assertEqual(data["username"], self.test_username)
         self.assertEqual(data["title"], f"{self.test_username}'s Links")
         
-        self.linkpage_id = data["id"]
+        LinkBioAPITest.linkpage_id = data["id"]
         print(f"✅ Link page created - ID: {self.linkpage_id}")
     
     def test_05_get_my_linkpage(self):
