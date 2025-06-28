@@ -73,7 +73,7 @@ class LinkBioAPITest(unittest.TestCase):
         self.assertEqual(data["user"]["email"], self.test_email)
         
         # Update token
-        self.token = data["access_token"]
+        LinkBioAPITest.token = data["access_token"]
         print("✅ Login successful")
     
     def test_03_get_current_user(self):
