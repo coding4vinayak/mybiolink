@@ -268,5 +268,22 @@ class LinkBioAPITest(unittest.TestCase):
         print("✅ Link deleted successfully")
 
 if __name__ == "__main__":
-    # Run tests in order
-    unittest.main(argv=['first-arg-is-ignored'], exit=False)
+    # Create a test suite with tests in order
+    test_suite = unittest.TestSuite()
+    test_suite.addTest(LinkBioAPITest('test_01_signup'))
+    test_suite.addTest(LinkBioAPITest('test_02_login'))
+    test_suite.addTest(LinkBioAPITest('test_03_get_current_user'))
+    test_suite.addTest(LinkBioAPITest('test_04_create_linkpage'))
+    test_suite.addTest(LinkBioAPITest('test_05_get_my_linkpage'))
+    test_suite.addTest(LinkBioAPITest('test_06_update_linkpage'))
+    test_suite.addTest(LinkBioAPITest('test_07_add_link'))
+    test_suite.addTest(LinkBioAPITest('test_08_update_link'))
+    test_suite.addTest(LinkBioAPITest('test_09_get_public_linkpage'))
+    test_suite.addTest(LinkBioAPITest('test_10_track_link_click'))
+    test_suite.addTest(LinkBioAPITest('test_11_delete_link'))
+    
+    # Run the tests
+    result = unittest.TextTestRunner().run(test_suite)
+    
+    # Return non-zero exit code if tests failed
+    sys.exit(not result.wasSuccessful())
