@@ -185,7 +185,17 @@ async def create_linkpage(linkpage_data: LinkPageCreate, current_user: User = De
     # Check if user already has a linkpage
     existing_page = await db.linkpages.find_one({"user_id": current_user.id})
     if existing_page:
-        raise HTTPException(status_code=400, detail="User already has a link page")
+        # Update existing page instead of creating new one
+        update_data = linkpage_data.dict()
+        update_data["updated_at"] = datetime.utcnow()
+        
+        await db.linkpages.update_one(
+            {"user_id": current_user.id},
+            {"$set": update_data}
+        )
+        
+        updated_page = await db.linkpages.find_one({"user_id": current_user.id})
+        return LinkPage(**updated_page)
     
     linkpage = LinkPage(
         user_id=current_user.id,
@@ -193,8 +203,16 @@ async def create_linkpage(linkpage_data: LinkPageCreate, current_user: User = De
         **linkpage_data.dict()
     )
     
-    await db.linkpages.insert_one(linkpage.dict())
-    return linkpage
+    try:
+        await db.linkpages.insert_one(linkpage.dict())
+        return linkpage
+    except Exception as e:
+        # If duplicate key error, return existing page
+        if "duplicate key error" in str(e):
+            existing_page = await db.linkpages.find_one({"user_id": current_user.id})
+            if existing_page:
+                return LinkPage(**existing_page)
+        raise HTTPException(status_code=500, detail="Error creating link page")
 
 @api_router.get("/linkpage/my")
 async def get_my_linkpage(current_user: User = Depends(get_current_user)):
