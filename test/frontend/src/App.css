@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+.App-link:hover {
+  text-decoration: underline;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors;
+}
+
+/* Link page animations */
+.link-item {
+  @apply transform hover:scale-105 transition-transform duration-200;
+}
+
+/* Focus styles */
+input:focus,
+textarea:focus,
+button:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-opacity-50;
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .App-header {
+    font-size: calc(8px + 2vmin);
+    padding: 10px;
+  }
+  
+  .card {
+    @apply mx-2;
+  }
+}
+
+/* Dark mode support (future) */
+@media (prefers-color-scheme: dark) {
+  /* Future dark mode styles */
+}
+
+/* Loading animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Success/Error states */
+.success {
+  @apply bg-green-50 border border-green-200 text-green-800 p-3 rounded-lg;
+}
+
+.error {
+  @apply bg-red-50 border border-red-200 text-red-800 p-3 rounded-lg;
+}
+
+/* Custom link styles for public pages */
+.public-link {
+  @apply block w-full p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 text-left border border-gray-100 hover:border-gray-200;
+}
+
+.public-link:hover {
+  transform: translateY(-2px);
+}
+
+/* Theme color utilities */
+.theme-primary {
+  background-color: var(--theme-color, #3B82F6);
+}
+
+.theme-primary-light {
+  background-color: var(--theme-color-light, #DBEAFE);
+}
+
+/* Profile picture placeholder */
+.avatar {
+  @apply flex items-center justify-center rounded-full font-bold text-white;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+/* Responsive grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Custom form styles */
+.form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors;
+}
+
+.form-input:focus {
+  @apply ring-2 ring-blue-500 border-transparent;
+}
+
+/* Toast notifications (future) */
+.toast {
+  @apply fixed top-4 right-4 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-50;
+}
+
+/* Utility classes */
+.text-truncate {
+  @apply truncate;
+}
+
+.bg-pattern {
+  background-image: url("data:image/svg+xml,%3csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='none' fill-rule='evenodd'%3e%3cg fill='%236366f1' fill-opacity='0.05' fill-rule='nonzero'%3e%3cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");
+}
